@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">RED-LINK - Blood Management System</title>
+
+    <!-- Local Fonts -->
+    <link rel="stylesheet" th:href="@{/vendor/fonts/fonts.css}">
+    <!-- Local Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
+    <!-- Local Font Awesome -->
+    <link rel="stylesheet" th:href="@{/vendor/fontawesome/css/all.min.css}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+    <!-- Scripts Fragment -->
+    <div th:fragment="scripts">
+        <!-- Local Bootstrap JS -->
+        <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+        <!-- Custom JS -->
+        <script th:src="@{/js/script.js}"></script>
+    </div>
+
+
+    <!-- Navigation -->
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <!-- Main Content -->
+    <main class="container my-4">
+        <!-- Flash Messages -->
+        <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <span th:text="${success}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+
+        <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <span th:text="${error}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+
+        <!-- Page Content -->
+        <div th:replace="${content}">
+            <!-- Content will be replaced by child templates -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>RED-LINK</h5>
+                    <p>Connecting blood donors with those in need.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>&copy; 2025 - 2026 RED-LINK. All rights reserved.</p>
+                    <div class="social-links">
+                        <a href="#" class="text-light me-3"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Include Scripts -->
+    <div th:replace="::scripts"></div>
+</body>
+
+</html>

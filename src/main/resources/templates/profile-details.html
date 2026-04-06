@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">User Profile - RED-LINK</title>
+
+    <!-- Local Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
+    <!-- Local Font Awesome -->
+    <link rel="stylesheet" th:href="@{/vendor/fontawesome/css/all.min.css}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <!-- Profile Header -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body text-center py-5">
+                        <div class="mb-3">
+                            <div class="bg-danger rounded-circle d-inline-flex align-items-center justify-content-center"
+                                style="width: 100px; height: 100px;">
+                                <i class="fas fa-user fa-3x text-white"></i>
+                            </div>
+                        </div>
+                        <h2 class="fw-bold mb-1" th:text="${profileUser.name}">User Name</h2>
+                        <p class="text-muted mb-0" th:text="${profileUser.email}">user@example.com</p>
+                    </div>
+                </div>
+
+                <!-- Profile Details -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-white border-bottom">
+                        <h5 class="mb-0"><i class="fas fa-info-circle text-danger me-2"></i>Donor Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-4 fw-bold">Full Name:</div>
+                            <div class="col-md-8" th:text="${profileUser.name}">-</div>
+                        </div>
+                        <div class="row mb-3" sec:authorize="hasRole('ADMIN')">
+                            <div class="col-md-4 fw-bold">Email:</div>
+                            <div class="col-md-8" th:text="${profileUser.email}">-</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4 fw-bold">Contact:</div>
+                            <div class="col-md-8">
+                                <a th:href="'tel:' + ${profileUser.contact}"
+                                    class="text-decoration-none text-danger fw-bold">
+                                    <i class="fas fa-phone-alt me-2"></i><span th:text="${profileUser.contact}">-</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4 fw-bold">Blood Group:</div>
+                            <div class="col-md-8">
+                                <span class="badge bg-danger fs-6" th:if="${profileUser.bloodGroup}"
+                                    th:text="${profileUser.bloodGroup.displayName}">-</span>
+                                <span th:if="${profileUser.bloodGroup == null}">-</span>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4 fw-bold">City:</div>
+                            <div class="col-md-8">
+                                <span class="badge bg-info" th:if="${profileUser.city}"
+                                    th:text="${profileUser.city.displayName}">-</span>
+                                <span th:if="${profileUser.city == null}">-</span>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4 fw-bold">Address:</div>
+                            <div class="col-md-8" th:text="${profileUser.address}">-</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4 fw-bold">Gender:</div>
+                            <div class="col-md-8" th:text="${profileUser.gender}">-</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            <a href="/search-donor" class="btn btn-outline-danger">
+                                <i class="fas fa-search me-2"></i>Back to Search
+                            </a>
+                            <a href="/dashboard" class="btn btn-outline-secondary">
+                                <i class="fas fa-home me-2"></i>Home
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-auto">
+        <div class="container text-center">
+            <p>&copy; 2025 - 2026 RED-LINK. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <!-- Local Bootstrap JS -->
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>

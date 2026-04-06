@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<body>
+    <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-danger">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-tint me-2"></i>RED-LINK
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:classappend="${#httpServletRequest.requestURI == '/' ? 'active' : ''}"
+                            th:href="@{/}">Home</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <a class="nav-link"
+                            th:classappend="${#httpServletRequest.requestURI.contains('/blood-requests') ? 'active' : ''}"
+                            th:href="@{/blood-requests}">Blood Requests</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <a class="nav-link"
+                            th:classappend="${#httpServletRequest.requestURI.contains('/search-donor') ? 'active' : ''}"
+                            th:href="@{/search-donor}">Search Donor</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <a class="nav-link"
+                            th:classappend="${#httpServletRequest.requestURI.contains('/hospitals/nearby') ? 'active' : ''}"
+                            th:href="@{/hospitals/nearby}">Nearby Hospitals</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <a class="nav-link"
+                            th:classappend="${#httpServletRequest.requestURI == '/blood-info' ? 'active' : ''}"
+                            th:href="@{/blood-info}">Blood Info</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <a class="nav-link"
+                            th:classappend="${#httpServletRequest.requestURI == '/about' ? 'active' : ''}"
+                            th:href="@{/about}">About</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <a class="nav-link"
+                            th:classappend="${#httpServletRequest.requestURI == '/achievements' ? 'active' : ''}"
+                            th:href="@{/achievements}">Achievements</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                        <a class="nav-link fw-bold text-warning" th:href="@{/admin/dashboard}">Admin Panel</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav">
+                    <li class="nav-item" sec:authorize="!isAuthenticated()">
+                        <a class="nav-link" th:href="@{/login}">Login</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="!isAuthenticated()">
+                        <a class="nav-link" th:href="@{/register}">Register</a>
+                    </li>
+                    <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown">
+                            <i class="fas fa-user me-1"></i>
+                            <span sec:authentication="name">User</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/dashboard}">Dashboard</a></li>
+                            <li sec:authorize="hasRole('ROLE_ADMIN')">
+                                <a class="dropdown-item" th:href="@{/admin/dashboard}">Admin Panel</a>
+                            </li>
+                            <li><a class="dropdown-item" th:href="@{/profile}">Profile</a></li>
+                            <li><a class="dropdown-item" th:href="@{/blood-requests/create}">Post Request</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <form th:action="@{/logout}" method="post" class="d-inline">
+                                    <button type="submit" class="dropdown-item">Logout</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</body>
+
+</html>

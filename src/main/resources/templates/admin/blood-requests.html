@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">Manage Blood Requests - Admin Panel</title>
+
+    <!-- Local Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
+    <!-- Local Font Awesome -->
+    <link rel="stylesheet" th:href="@{/vendor/fontawesome/css/all.min.css}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+    <!-- Include Navbar -->
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <div class="container my-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h3"><i class="fas fa-hand-holding-heart me-2 text-danger"></i>Manage Blood Requests</h1>
+            <a href="/admin/dashboard" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+            </a>
+        </div>
+
+        <div th:if="${param.deleted}" class="alert alert-success alert-dismissible fade show" role="alert">
+            Request deleted successfully.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Blood Group</th>
+                                <th>Location</th>
+                                <th>City</th>
+                                <th>Urgency</th>
+                                <th>Status</th>
+                                <th>Posted By</th>
+                                <th>Contact</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="request : ${requests.content}">
+                                <td>
+                                    <span class="badge bg-danger" th:text="${request.bloodGroup}">O+</span>
+                                </td>
+                                <td th:text="${request.location}">Location</td>
+                                <td th:text="${request.city}">City</td>
+                                <td>
+                                    <span class="badge rounded-pill"
+                                        th:classappend="${request.urgencyLevel.name() == 'CRITICAL' ? 'bg-danger' : (request.urgencyLevel.name() == 'HIGH' ? 'bg-orange text-dark' : 'bg-info text-dark')}"
+                                        th:text="${request.urgencyLevel.displayName}">NORMAL</span>
+                                </td>
+                                <td>
+                                    <span class="badge rounded-pill"
+                                        th:classappend="${request.status.name() == 'PENDING' ? 'bg-warning text-dark' :
+                                                                  request.status.name() == 'APPROVED' ? 'bg-primary' :
+                                                                  request.status.name() == 'REJECTED' ? 'bg-danger' :
+                                                                  request.status.name() == 'NOT_AVAILABLE' ? 'bg-secondary' :
+                                                                  request.status.name() == 'COMPLETED' ? 'bg-success' : 'bg-dark'}"
+                                        th:text="${request.status.displayName}">Pending</span>
+                                </td>
+                                <td th:text="${request.user.name}">User Name</td>
+                                <td th:text="${request.contact}">Contact</td>
+                                <td th:text="${#temporals.format(request.createdAt, 'dd MMM yyyy')}">Date</td>
+                                <td>
+                                    <form th:action="@{/admin/blood-requests/{id}/delete(id=${request.id})}"
+                                        method="post" style="display:inline;"
+                                        onsubmit="return confirm('Delete this request?');">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger"
+                                            title="Delete Request">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <tr th:if="${requests.empty}">
+                                <td colspan="9" class="text-center py-4">No blood requests found.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Pagination Controls -->
+            <div th:if="${totalPages > 1}" class="row align-items-center mt-4 pb-3 px-3">
+                <div class="col-md-4 text-muted">
+                    Showing <span th:text="${requests.numberOfElements}">0</span> of <span
+                        th:text="${totalItems}">0</span>
+                    entries
+                </div>
+                <div class="col-md-4 d-flex justify-content-center">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination mb-0">
+                            <!-- Previous Button -->
+                            <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                                <a class="page-link" th:href="@{/admin/blood-requests(page=${currentPage - 1})}"
+                                    aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+
+                            <!-- Page Numbers -->
+                            <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                                th:classappend="${currentPage == i} ? 'active'">
+                                <a class="page-link" th:href="@{/admin/blood-requests(page=${i})}"
+                                    th:text="${i + 1}">1</a>
+                            </li>
+
+                            <!-- Next Button -->
+                            <li class="page-item" th:classappend="${currentPage + 1 == totalPages} ? 'disabled'">
+                                <a class="page-link" th:href="@{/admin/blood-requests(page=${currentPage + 1})}"
+                                    aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div th:replace="fragments/footer :: footer"></div>
+
+    <!-- Local Bootstrap JS -->
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/script.js}"></script>
+
+</body>
+
+</html>

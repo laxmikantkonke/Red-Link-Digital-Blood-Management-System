@@ -1,0 +1,253 @@
+/* @import removed for offline support */
+
+:root {
+    --primary-color: #e63946;
+    --primary-hover: #d62828;
+    --secondary-color: #457b9d;
+    --accent-color: #f1faee;
+    --dark-color: #1d3557;
+    --text-color: #2b2d42;
+    --light-gray: #f8f9fa;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --shadow-soft: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+    --shadow-hover: 0 10px 40px 0 rgba(31, 38, 135, 0.15);
+    --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    color: var(--text-color);
+    background-color: #fff;
+    line-height: 1.6;
+}
+
+/* Glassmorphism Utility */
+.glass-effect {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: var(--shadow-soft);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse-red {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.animate-up {
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+/* Hero Section */
+.hero-section {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(rgba(29, 53, 87, 0.85), rgba(29, 53, 87, 0.85)), url('/images/hero_blood_drop.png');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    color: #fff;
+    padding: 100px 0;
+}
+
+.hero-title {
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+    background: linear-gradient(to right, #ffffff, #e63946);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Cards & Buttons */
+.card {
+    border: none;
+    border-radius: 20px;
+    transition: var(--transition);
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-hover) !important;
+}
+
+.btn {
+    border-radius: 12px;
+    padding: 12px 30px;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(230, 57, 70, 0.3);
+}
+
+.btn-light {
+    background-color: #fff;
+    color: var(--primary-color);
+}
+
+.btn-outline-light:hover {
+    background-color: #fff;
+    color: var(--dark-color);
+}
+
+/* Navbar */
+.navbar {
+    padding: 20px 0;
+    transition: var(--transition);
+    /* background: transparent !important; Removed to allow default visibility */
+}
+
+.navbar.scrolled {
+    background: var(--dark-color) !important;
+    padding: 10px 0;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.6rem;
+    letter-spacing: -1px;
+}
+
+.navbar-brand i {
+    color: #fff;
+    /* White icon for better visibility on red navbar */
+    animation: pulse-red 2s infinite ease-in-out;
+}
+
+/* Features */
+.feature-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    transition: var(--transition);
+}
+
+.card:hover .feature-icon {
+    transform: rotateY(360deg);
+}
+
+/* Impact Section */
+.impact-number {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--light-gray);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-hover);
+}
+
+/* Footer */
+footer {
+    background-color: var(--dark-color);
+    color: rgba(255, 255, 255, 0.7);
+    padding: 80px 0 30px;
+}
+
+footer h5 {
+    color: #fff;
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+.social-links a {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    margin-right: 10px;
+    transition: var(--transition);
+}
+
+.social-links a:hover {
+    background: var(--primary-color);
+    color: #fff;
+    transform: translateY(-5px);
+}
+
+.bg-orange {
+    background-color: #fd7e14 !important;
+    color: #fff !important;
+}
+
+.bg-primary {
+    background-color: #2a9d8f !important;
+    /* Teal for Approved */
+}
+
+.bg-success {
+    background-color: #28a745 !important;
+    /* Green for Completed */
+}
+
+.bg-danger {
+    background-color: var(--primary-color) !important;
+}
+
+.badge {
+    padding: 0.6em 1em;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}

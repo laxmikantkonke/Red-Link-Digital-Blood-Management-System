@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">Achievements - RED-LINK</title>
+
+    <!-- Local Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
+    <!-- Local Font Awesome -->
+    <link rel="stylesheet" th:href="@{/vendor/fontawesome/css/all.min.css}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <style>
+        .hero-section-small {
+            background: linear-gradient(rgba(29, 53, 87, 0.9), rgba(29, 53, 87, 0.9)), url('/images/hero_blood_drop.png');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 0;
+            margin-bottom: 50px;
+        }
+
+        .achievement-card {
+            border: none;
+            border-radius: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .achievement-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2.5rem;
+        }
+
+        .bg-red-light {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+        }
+
+        .bg-blue-light {
+            background-color: rgba(13, 110, 253, 0.1);
+            color: #0d6efd;
+        }
+
+        .bg-green-light {
+            background-color: rgba(25, 135, 84, 0.1);
+            color: #198754;
+        }
+
+        .mission-quote {
+            border-left: 5px solid #dc3545;
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 0 10px 10px 0;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Navigation -->
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <!-- Hero Section -->
+    <div class="hero-section-small text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold">Our Impact</h1>
+            <p class="lead">Celebrating milestones in our journey to save lives.</p>
+        </div>
+    </div>
+
+    <div class="container mb-5">
+
+        <div class="text-center mb-5">
+            <span class="badge bg-danger rounded-pill mb-2 px-3 py-2">MILESTONES</span>
+            <h2 class="fw-bold">What We've Achieved</h2>
+            <p class="text-muted w-75 mx-auto">
+                Every number represents a life touched, a hope renewed, and a community strengthened.
+                Here is the impact of the RED-LINK network so far.
+            </p>
+        </div>
+
+        <div class="row g-4 mb-5">
+
+            <!-- Card 1 -->
+            <div class="col-md-4">
+                <div class="card achievement-card h-100 shadow-sm p-4 text-center">
+                    <div class="card-body">
+                        <div class="achievement-icon bg-red-light">
+                            <i class="fas fa-hand-holding-heart"></i>
+                        </div>
+                        <h3 class="display-5 fw-bold text-danger mb-1">10,000+</h3>
+                        <p class="text-uppercase fw-bold text-dark small ls-1">Blood Donations</p>
+                        <hr class="w-25 mx-auto text-muted">
+                        <p class="text-muted small">
+                            Successful blood donations facilitated nationwide, ensuring critical supply reaches those in
+                            need.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-md-4">
+                <div class="card achievement-card h-100 shadow-sm p-4 text-center">
+                    <div class="card-body">
+                        <div class="achievement-icon bg-blue-light">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="display-5 fw-bold text-primary mb-1">5,000+</h3>
+                        <p class="text-uppercase fw-bold text-dark small ls-1">Registered Donors</p>
+                        <hr class="w-25 mx-auto text-muted">
+                        <p class="text-muted small">
+                            A growing community of verified heroes ready to answer the call for help across multiple
+                            cities.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-md-4">
+                <div class="card achievement-card h-100 shadow-sm p-4 text-center">
+                    <div class="card-body">
+                        <div class="achievement-icon bg-green-light">
+                            <i class="fas fa-hospital-alt"></i>
+                        </div>
+                        <h3 class="display-5 fw-bold text-success mb-1">1,200+</h3>
+                        <p class="text-uppercase fw-bold text-dark small ls-1">Hospitals Connected</p>
+                        <hr class="w-25 mx-auto text-muted">
+                        <p class="text-muted small">
+                            Partner hospitals and clinics actively using RED-LINK to request and manage blood inventory.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Mission Section -->
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-10">
+                <div class="mission-quote shadow-sm my-4">
+                    <div class="row align-items-center">
+                        <div class="col-md-2 text-center text-danger">
+                            <i class="fas fa-quote-left fa-3x opacity-50"></i>
+                        </div>
+                        <div class="col-md-10">
+                            <h4 class="fw-bold mb-3">Our Mission</h4>
+                            <p class="lead mb-0">
+                                "To create a fast, reliable, and transparent blood management system that saves lives
+                                by connecting donors, hospitals, and patients in real time, erasing boundaries and time
+                                constraints."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-5">
+            <a th:href="@{/}" class="btn btn-outline-secondary btn-lg rounded-pill px-5">
+                <i class="fas fa-arrow-left me-2"></i>Back to Home
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div th:replace="fragments/footer :: footer"></div>
+
+    <!-- Bootstrap JS -->
+    <!-- Local Bootstrap JS -->
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/script.js}"></script>
+
+</body>
+
+</html>

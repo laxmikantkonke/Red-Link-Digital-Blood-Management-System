@@ -1,0 +1,156 @@
+[
+  {
+    "name": "JJ Hospital",
+    "address": "Byculla, Mumbai",
+    "city": "MUMBAI",
+    "latitude": 18.9613,
+    "longitude": 72.8340
+  },
+  {
+    "name": "KEM Hospital",
+    "address": "Parel, Mumbai",
+    "city": "MUMBAI",
+    "latitude": 19.0028,
+    "longitude": 72.8420
+  },
+  {
+    "name": "Sassoon General Hospital",
+    "address": "Station Road, Pune",
+    "city": "PUNE",
+    "latitude": 18.5284,
+    "longitude": 73.8739
+  },
+  {
+    "name": "Ruby Hall Clinic",
+    "address": "Sassoon Road, Pune",
+    "city": "PUNE",
+    "latitude": 18.5306,
+    "longitude": 73.8768
+  },
+  {
+    "name": "AIIMS Nagpur",
+    "address": "MIHAN, Nagpur",
+    "city": "NAGPUR",
+    "latitude": 21.0664,
+    "longitude": 79.0346
+  },
+  {
+    "name": "GMCH Nagpur",
+    "address": "Medical Square, Nagpur",
+    "city": "NAGPUR",
+    "latitude": 21.1278,
+    "longitude": 79.0969
+  },
+  {
+    "name": "Civil Hospital Nashik",
+    "address": "Trimbak Road, Nashik",
+    "city": "NASHIK",
+    "latitude": 19.9972,
+    "longitude": 73.7667
+  },
+  {
+    "name": "Ashoka Medicover Hospital",
+    "address": "Wadala Road, Nashik",
+    "city": "NASHIK",
+    "latitude": 19.9818,
+    "longitude": 73.7915
+  },
+  {
+    "name": "Jupiter Hospital",
+    "address": "Eastern Express Highway, Thane",
+    "city": "THANE",
+    "latitude": 19.2132,
+    "longitude": 72.9778
+  },
+  {
+    "name": "Bethany Hospital",
+    "address": "Pokhran Road, Thane",
+    "city": "THANE",
+    "latitude": 19.2185,
+    "longitude": 72.9645
+  },
+  {
+    "name": "CPR Hospital",
+    "address": "B Ward, Kolhapur",
+    "city": "KOLHAPUR",
+    "latitude": 16.7027,
+    "longitude": 74.2255
+  },
+  {
+    "name": "Aster Aadhar Hospital",
+    "address": "Shastri Nagar, Kolhapur",
+    "city": "KOLHAPUR",
+    "latitude": 16.6974,
+    "longitude": 74.2492
+  },
+  {
+    "name": "Civil Hospital Solapur",
+    "address": "Budhwar Peth, Solapur",
+    "city": "SOLAPUR",
+    "latitude": 17.6606,
+    "longitude": 75.9080
+  },
+  {
+    "name": "Yashodhara Hospital",
+    "address": "Sidheshwar Peth, Solapur",
+    "city": "SOLAPUR",
+    "latitude": 17.6715,
+    "longitude": 75.9123
+  },
+  {
+    "name": "Irwin General Hospital",
+    "address": "Morshi Road, Amravati",
+    "city": "AMRAVATI",
+    "latitude": 20.9351,
+    "longitude": 77.7548
+  },
+  {
+    "name": "Platinum Hospital",
+    "address": "Badnera Road, Amravati",
+    "city": "AMRAVATI",
+    "latitude": 20.9067,
+    "longitude": 77.7709
+  },
+  {
+    "name": "Dr. Shankarrao Chavan Govt Medical College Hospital",
+    "address": "Vishnupuri, Nanded",
+    "city": "NANDED",
+    "latitude": 19.1368,
+    "longitude": 77.2974
+  },
+  {
+    "name": "Lotus Hospital",
+    "address": "VIP Road, Nanded",
+    "city": "NANDED",
+    "latitude": 19.1624,
+    "longitude": 77.3090
+  },
+  {
+    "name": "Apollo Hospitals",
+    "address": "Jubilee Hills, Hyderabad",
+    "city": "HYDERABAD",
+    "latitude": 17.4178,
+    "longitude": 78.4116
+  },
+  {
+    "name": "Yashoda Hospitals",
+    "address": "Secunderabad, Hyderabad",
+    "city": "HYDERABAD",
+    "latitude": 17.4414,
+    "longitude": 78.4983
+  },
+  {
+    "name": "MGM Hospital (Kakatiya Medical College)",
+    "address": "Warangal",
+    "city": "WARANGAL",
+    "latitude": 17.9892,
+    "longitude": 79.5898
+  },
+  {
+    "name": "Rohini Super Speciality Hospital",
+    "address": "Warangal",
+    "city": "WARANGAL",
+    "latitude": 17.9620,
+    "longitude": 79.5936
+  }
+]

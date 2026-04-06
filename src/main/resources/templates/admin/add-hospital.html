@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/base :: head">
+    <title>Add Hospital - Admin Panel</title>
+</head>
+
+<body class="bg-light">
+
+    <!-- Include Navbar -->
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <!-- Page Header -->
+                <div class="d-flex align-items-center mb-4">
+                    <a th:href="@{/admin/dashboard}" class="btn btn-outline-secondary me-3">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                    <h2 class="mb-0 fw-bold text-danger">
+                        <i class="fas fa-hospital-plus me-2"></i>Add New Hospital
+                    </h2>
+                </div>
+
+                <!-- Form Card -->
+                <div class="card border-0 shadow-sm rounded-3">
+                    <div class="card-body p-4">
+                        <form id="addHospitalForm" th:action="@{/admin/hospitals/add}" th:object="${hospital}"
+                            method="post">
+                            <div class="row g-3">
+                                <!-- Name -->
+                                <div class="col-12">
+                                    <label for="name" class="form-label fw-bold">Hospital Name</label>
+                                    <input type="text" th:field="*{name}" class="form-control" id="name"
+                                        placeholder="Enter hospital name" required>
+                                </div>
+
+                                <!-- City -->
+                                <div class="col-md-6">
+                                    <label for="city" class="form-label fw-bold">City</label>
+                                    <select th:field="*{city}" class="form-select" id="city" required>
+                                        <option value="" selected disabled>Select City</option>
+                                        <option th:each="c : ${cities}" th:value="${c}" th:text="${c.displayName}">City
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <!-- Contact No -->
+                                <div class="col-md-6">
+                                    <label for="contact" class="form-label fw-bold">Contact Number</label>
+                                    <input type="text" th:field="*{contact}" class="form-control" id="contact"
+                                        placeholder="Enter contact number">
+                                </div>
+
+                                <!-- Email -->
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label fw-bold">Email Address</label>
+                                    <input type="email" th:field="*{email}" class="form-control" id="email"
+                                        placeholder="example@hospital.com">
+                                </div>
+
+                                <!-- Geolocation -->
+                                <div class="col-md-6">
+                                    <label for="latitude" class="form-label fw-bold">Latitude (Optional)</label>
+                                    <input type="number" step="any" th:field="*{latitude}" class="form-control"
+                                        id="latitude" placeholder="Auto-detect if empty">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="longitude" class="form-label fw-bold">Longitude (Optional)</label>
+                                    <input type="number" step="any" th:field="*{longitude}" class="form-control"
+                                        id="longitude" placeholder="Auto-detect if empty">
+                                </div>
+
+
+                                <!-- Address -->
+                                <div class="col-12">
+                                    <label for="address" class="form-label fw-bold">Full Address</label>
+                                    <textarea th:field="*{address}" class="form-control" id="address" rows="2"
+                                        placeholder="Enter complete address" required></textarea>
+                                </div>
+
+                                <!-- Description -->
+                                <div class="col-12">
+                                    <label for="description" class="form-label fw-bold">Description (Optional)</label>
+                                    <textarea th:field="*{description}" class="form-control" id="description" rows="3"
+                                        placeholder="Additional details about the hospital..."></textarea>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <div class="col-12 mt-4">
+                                    <button type="submit"
+                                        class="btn btn-danger btn-lg w-100 fw-bold py-3 shadow-sm rounded-pill">
+                                        <i class="fas fa-save me-2"></i>Register Hospital
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Scripts -->
+    <div th:replace="layout/base :: scripts"></div>
+
+    <!-- Dynamic Add Hospital Script -->
+    <script th:inline="javascript">
+        document.getElementById('addHospitalForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const submitBtn = this.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Saving...';
+
+            const formData = {
+                name: document.getElementById('name').value,
+                city: document.getElementById('city').value,
+                latitude: document.getElementById('latitude').value,
+                longitude: document.getElementById('longitude').value,
+                contact: document.getElementById('contact').value,
+                email: document.getElementById('email').value,
+                address: document.getElementById('address').value,
+                description: document.getElementById('description').value
+            };
+
+            fetch('/api/hospitals/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = '/admin/dashboard?success=Hospital added dynamically!';
+                    } else {
+                        return response.text().then(text => { throw new Error(text) });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error adding hospital: ' + error.message);
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-save me-2"></i>Register Hospital';
+                });
+        });
+    </script>
+
+</body>
+
+</html>

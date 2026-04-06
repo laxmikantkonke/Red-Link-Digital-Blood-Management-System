@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="layout/base :: head">
+    <title>RED-LINK | Save Lives</title>
+</head>
+
+
+<body>
+    <!-- Navigation -->
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7 animate-up">
+                    <h1 class="hero-title">Be the Reason <br> Someone Smiles Today</h1>
+                    <p class="lead mb-5 opacity-75" style="max-width: 600px; font-size: 1.25rem;">
+                        Join our mission to bridge the gap between blood donors and those in urgent need.
+                        Your simple act of kindness can gift someone a lifetime.
+                    </p>
+                    <div class="d-flex gap-4">
+                        <a th:href="@{/register}" class="btn btn-primary btn-lg shadow-sm"
+                            sec:authorize="!isAuthenticated()">
+                            <i class="fas fa-plus-circle me-2"></i>Donate Now
+                        </a>
+                        <a th:href="@{/about}" class="btn btn-outline-light btn-lg" sec:authorize="isAuthenticated()">
+                            Our Impact
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-5 mt-n5 position-relative" style="z-index: 10;" sec:authorize="isAuthenticated()">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 glass-effect p-3">
+                        <div class="card-body">
+                            <div class="feature-icon bg-danger text-white shadow-sm">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h4 class="fw-bold mb-3">Find Donors</h4>
+                            <p class="text-muted mb-4">Real-time matching with registered donors in your specific
+                                locality and blood group.</p>
+                            <a th:href="@{/search-donor}"
+                                class="btn btn-link text-danger p-0 fw-bold text-decoration-none">
+                                Explore Donors <i class="fas fa-arrow-right ms-2 mt-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card h-100 glass-effect p-3">
+                        <div class="card-body">
+                            <div class="feature-icon bg-primary text-white shadow-sm">
+                                <i class="fas fa-hospital"></i>
+                            </div>
+                            <h4 class="fw-bold mb-3">Nearby Care</h4>
+                            <p class="text-muted mb-4">Instantly locate the nearest hospitals and blood banks with
+                                active inventory tracking.</p>
+                            <a th:href="@{/hospitals/nearby}"
+                                class="btn btn-link text-primary p-0 fw-bold text-decoration-none">
+                                Find Hospitals <i class="fas fa-arrow-right ms-2 mt-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card h-100 glass-effect p-3">
+                        <div class="card-body">
+                            <div class="feature-icon bg-dark text-white shadow-sm">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <h4 class="fw-bold mb-3">Emergency Response</h4>
+                            <p class="text-muted mb-4">Critical alerts sent directly to donors for life-saving blood
+                                requirements in seconds.</p>
+                            <a th:href="@{/blood-requests}"
+                                class="btn btn-link text-dark p-0 fw-bold text-decoration-none">
+                                Emergency List <i class="fas fa-arrow-right ms-2 mt-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="py-5 my-5">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-12">
+                    <span class="text-danger fw-bold text-uppercase tracking-wider">Real-time Impact</span>
+                    <h2 class="display-6 fw-bold mt-2">Numbers That Tell Our Story</h2>
+                </div>
+            </div>
+            <div class="row g-4 text-center">
+                <div class="col-md-3">
+                    <div class="p-4 rounded-3 border-start border-danger border-4 shadow-sm bg-white h-100">
+                        <div class="impact-number">1k+</div>
+                        <p class="text-muted fw-bold mb-0">Lives Saved</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-4 rounded-3 border-start border-danger border-4 shadow-sm bg-white h-100">
+                        <div class="impact-number">5h+</div>
+                        <p class="text-muted fw-bold mb-0">Active Donors</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-4 rounded-3 border-start border-danger border-4 shadow-sm bg-white h-100">
+                        <div class="impact-number">50+</div>
+                        <p class="text-muted fw-bold mb-0">Partner Hospitals</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-4 rounded-3 border-start border-danger border-4 shadow-sm bg-white h-100">
+                        <div class="impact-number">24/7</div>
+                        <p class="text-muted fw-bold mb-0">Ready to Assist</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-5 bg-light" sec:authorize="!isAuthenticated()">
+        <div class="container">
+            <div class="card border-0 bg-dark text-white p-5 overflow-hidden position-relative">
+                <div class="row align-items-center position-relative" style="z-index: 1;">
+                    <div class="col-lg-8">
+                        <h2 class="display-5 fw-bold mb-3">Join the Red Link Revolution</h2>
+                        <p class="lead opacity-75 mb-4">Connect with thousands of heroes who are making a difference
+                            every single day.</p>
+                        <div class="d-flex gap-3">
+                            <a th:href="@{/register}" class="btn btn-primary btn-lg px-5">Join Now</a>
+                            <a th:href="@{/blood-info}" class="btn btn-outline-light btn-lg"
+                                sec:authorize="isAuthenticated()">Learn How It Works</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 text-end d-none d-lg-block">
+                        <i class="fas fa-users-rays display-1 opacity-25"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="mt-5">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-md-4">
+                    <h5 class="navbar-brand mb-4 text-white">RED<span class="text-danger">-LINK</span></h5>
+                    <p class="pe-md-5">We are dedicated to building a seamless network for blood donation, ensuring help
+                        reaches those in over-the-horizon emergencies.</p>
+                </div>
+                <div class="col-md-2 col-6">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a th:href="@{/blood-requests}" class="text-decoration-none text-muted">All Requests</a>
+                        </li>
+                        <li><a th:href="@{/search-donor}" class="text-decoration-none text-muted">Find Donors</a></li>
+                        <li><a th:href="@{/hospitals/nearby}" class="text-decoration-none text-muted">Nearby Help</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-2 col-6">
+                    <h5>Company</h5>
+                    <ul class="list-unstyled">
+                        <li><a th:href="@{/about}" class="text-decoration-none text-muted">Our Story</a></li>
+                        <li><a th:href="@{/achievements}" class="text-decoration-none text-muted">Success</a></li>
+                        <li><a th:href="@{/blood-info}" class="text-decoration-none text-muted">Education</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Stay Connected</h5>
+                    <div class="social-links mb-4">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <p class="mb-0">info@redlink.com</p>
+                </div>
+            </div>
+            <hr class="my-5 opacity-10">
+            <div class="row">
+                <div class="col-12 text-center text-muted">
+                    <p class="small">&copy; 2025 - 2026 RED-LINK. All rights reserved. Crafted with <i
+                            class="fas fa-heart text-danger"></i> for humanity.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Include Scripts -->
+    <div th:replace="layout/base :: scripts"></div>
+
+    <!-- Custom scroll interaction -->
+    <script>
+        function checkScroll() {
+            const nav = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled', 'shadow-sm');
+                nav.style.background = '#1d3557';
+            } else {
+                nav.classList.remove('scrolled', 'shadow-sm');
+                nav.style.background = 'transparent';
+            }
+        }
+
+        window.addEventListener('scroll', checkScroll);
+        document.addEventListener('DOMContentLoaded', checkScroll);
+    </script>
+</body>
+
+</html>

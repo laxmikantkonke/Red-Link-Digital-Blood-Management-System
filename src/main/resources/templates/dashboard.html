@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">Dashboard - RED-LINK</title>
+
+    <!-- Local Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
+    <!-- Local Font Awesome -->
+    <link rel="stylesheet" th:href="@{/vendor/fontawesome/css/all.min.css}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <!-- Dashboard Content -->
+    <div class="container my-4">
+
+        <!-- Welcome Section -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="bg-danger text-white rounded p-4 shadow-sm">
+                    <h1 class="h3 mb-2">
+                        Welcome back, <span th:text="${currentUser.name}">User</span>!
+                    </h1>
+                    <p class="mb-0">Help someone today. Your contribution can save lives.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Statistics -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-3">
+                <a href="/blood-requests" class="text-decoration-none">
+                    <div class="card h-100 border-0 shadow-sm hover-shadow bg-white">
+                        <div class="card-body d-flex align-items-center">
+                            <div class="bg-danger text-white rounded p-3 me-3">
+                                <i class="fas fa-hand-holding-heart fa-2x"></i>
+                            </div>
+                            <div>
+                                <h5 class="card-title mb-0 text-dark">Total</h5>
+                                <h2 class="mb-0 text-dark" th:text="${totalRequests}">0</h2>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a th:href="@{/blood-requests/search(status='PENDING')}" class="text-decoration-none">
+                    <div
+                        class="card h-100 border-0 shadow-sm hover-shadow bg-white border-bottom border-warning border-4">
+                        <div class="card-body d-flex align-items-center">
+                            <div class="bg-warning text-dark rounded p-3 me-3">
+                                <i class="fas fa-clock fa-2x"></i>
+                            </div>
+                            <div>
+                                <h5 class="card-title mb-0 text-dark">Pending</h5>
+                                <h2 class="mb-0 text-dark" th:text="${pendingCount}">0</h2>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a th:href="@{/blood-requests/search(status='APPROVED')}" class="text-decoration-none">
+                    <div
+                        class="card h-100 border-0 shadow-sm hover-shadow bg-white border-bottom border-success border-4">
+                        <div class="card-body d-flex align-items-center">
+                            <div class="bg-success text-white rounded p-3 me-3">
+                                <i class="fas fa-check-circle fa-2x"></i>
+                            </div>
+                            <div>
+                                <h5 class="card-title mb-0 text-dark">Approved</h5>
+                                <h2 class="mb-0 text-dark" th:text="${approvedCount}">0</h2>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a href="/hospitals" class="text-decoration-none">
+                    <div class="card h-100 border-0 shadow-sm hover-shadow bg-white">
+                        <div class="card-body d-flex align-items-center">
+                            <div class="bg-primary text-white rounded p-3 me-3">
+                                <i class="fas fa-hospital fa-2x"></i>
+                            </div>
+                            <div>
+                                <h5 class="card-title mb-0 text-dark">Hospitals</h5>
+                                <h2 class="mb-0 text-dark" th:text="${totalHospitals}">0</h2>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h3 class="h4 mb-3">Quick Actions</h3>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <a href="/blood-requests/create" class="btn btn-danger w-100 p-3">
+                            <i class="fas fa-plus fa-2x mb-2"></i><br>
+                            Post Blood Request
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="/blood-requests" class="btn btn-outline-danger w-100 p-3">
+                            <i class="fas fa-list fa-2x mb-2"></i><br>
+                            View All Requests
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="/hospitals/nearby" class="btn btn-outline-danger w-100 p-3">
+                            <i class="fas fa-hospital fa-2x mb-2"></i><br>
+                            Find Hospitals
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="/search-donor" class="btn btn-outline-danger w-100 p-3">
+                            <i class="fas fa-search fa-2x mb-2"></i><br>
+                            Search Donors
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics Cards (UNCHANGED) -->
+        <!-- Recent Requests, Nearby Hospitals -->
+
+        <footer class="bg-dark text-light py-4 mt-5">
+            <div class="container text-center">
+                <p>&copy; 2025 - 2026 RED-LINK. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Local Bootstrap JS -->
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/script.js}"></script>
+
+</body>
+
+</html>

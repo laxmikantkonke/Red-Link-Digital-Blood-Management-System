@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">Hospital View - RED-LINK</title>
+    <!-- Local Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
+    <!-- Local Font Awesome -->
+    <link rel="stylesheet" th:href="@{/vendor/fontawesome/css/all.min.css}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body class="bg-light">
+
+    <nav th:replace="fragments/navbar :: navbar"></nav>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/hospitals/nearby">Nearby Hospitals</a></li>
+                        <li class="breadcrumb-item active" aria-current="page" th:text="${hospital.name}">Hospital
+                            Details</li>
+                    </ol>
+                </nav>
+
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-danger text-white rounded-circle p-3 me-3">
+                                <i class="fas fa-hospital fa-2x"></i>
+                            </div>
+                            <div>
+                                <h2 class="mb-0" th:text="${hospital.name}">Hospital Name</h2>
+                                <p class="text-muted mb-0">
+                                    <i class="fas fa-map-marker-alt me-1"></i>
+                                    <span th:text="${hospital.city}">City</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <h6 class="text-primary fw-bold">Address</h6>
+                                <p th:text="${hospital.address}">Full Address</p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <h6 class="text-primary fw-bold">Contact Number</h6>
+                                <p><i class="fas fa-phone-alt me-2 text-danger"></i><span
+                                        th:text="${hospital.contact}">Contact Number</span></p>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <h5 class="mb-3">
+                                    <i class="fas fa-tint text-danger me-2"></i>Blood Availability
+                                </h5>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered text-center align-middle">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Blood Group</th>
+                                                <th>Units Available</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="item : ${inventory}">
+                                                <td>
+                                                    <span class="badge bg-danger p-2 fs-6"
+                                                        th:text="${item.bloodGroup.displayName}">A+</span>
+                                                </td>
+                                                <td>
+                                                    <span class="fw-bold" th:text="${item.units}">10</span> Units
+                                                </td>
+                                                <td>
+                                                    <span th:if="${item.units > 5}"
+                                                        class="text-success fw-bold">Available</span>
+                                                    <span th:if="${item.units > 0 && item.units <= 5}"
+                                                        class="text-warning fw-bold">Low Stock</span>
+                                                    <span th:if="${item.units == 0}" class="text-danger fw-bold">Out
+                                                        of Stock</span>
+                                                </td>
+                                            </tr>
+                                            <tr th:if="${#lists.isEmpty(inventory)}">
+                                                <td colspan="3" class="text-muted py-4">No blood availability
+                                                    information provided yet.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 text-center">
+                            <a href="/hospitals/nearby" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>Back to Search
+                            </a>
+                            <a href="/blood-requests/create" class="btn btn-danger ms-2">
+                                <i class="fas fa-plus me-2"></i>Request Blood
+                            </a>
+
+                            <!-- Admin: Manage Stock Button -->
+                            <button sec:authorize="hasRole('ADMIN')" type="button" class="btn btn-warning ms-2"
+                                data-bs-toggle="modal" data-bs-target="#stockModal">
+                                <i class="fas fa-boxes me-2"></i>Manage Stock
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manage Stock Modal -->
+    <div class="modal fade" id="stockModal" tabindex="-1" aria-labelledby="stockModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title text-dark" id="stockModalLabel">Update Blood Inventory</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="stockForm">
+                        <div class="mb-3">
+                            <label for="bloodGroup" class="form-label">Blood Group</label>
+                            <select class="form-select" id="bloodGroup" required>
+                                <option value="A_POSITIVE">A+</option>
+                                <option value="A_NEGATIVE">A-</option>
+                                <option value="B_POSITIVE">B+</option>
+                                <option value="B_NEGATIVE">B-</option>
+                                <option value="AB_POSITIVE">AB+</option>
+                                <option value="AB_NEGATIVE">AB-</option>
+                                <option value="O_POSITIVE">O+</option>
+                                <option value="O_NEGATIVE">O-</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="units" class="form-label">Units Available</label>
+                            <input type="number" class="form-control" id="units" min="0" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="updateStock()">Update Stock</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        function updateStock() {
+            const hospitalId = /*[[${hospital.id}]]*/ 0;
+            const bloodGroup = document.getElementById('bloodGroup').value;
+            const units = document.getElementById('units').value;
+
+            fetch(`/api/hospitals/${hospitalId}/inventory`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    bloodGroup: bloodGroup,
+                    units: parseInt(units)
+                })
+            })
+                .then(response => {
+                    if (response.ok) {
+                        location.reload();
+                    } else {
+                        alert("Error updating stock");
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+        /*]]>*/
+    </script>
+
+    <footer class="bg-dark text-light py-4 mt-auto">
+        <div class="container text-center">
+            <p>&copy; 2025 - 2026 RED-LINK. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Local Bootstrap JS -->
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>

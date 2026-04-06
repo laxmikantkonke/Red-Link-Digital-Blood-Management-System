@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">Edit Profile - RED-LINK</title>
+
+    <!-- Local Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
+    <!-- Local Font Awesome -->
+    <link rel="stylesheet" th:href="@{/vendor/fontawesome/css/all.min.css}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <!-- Page Header -->
+                <div class="mb-4">
+                    <h2 class="fw-bold"><i class="fas fa-user-edit text-danger me-2"></i>Edit Profile</h2>
+                    <p class="text-muted">Update your personal information</p>
+                </div>
+
+                <!-- Edit Profile Form -->
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <form th:action="@{/profile/update}" th:object="${currentUser}" method="post">
+                            <!-- Hidden fields for essential identification -->
+                            <input type="hidden" th:field="*{id}">
+                            <input type="hidden" th:field="*{username}">
+                            <input type="hidden" th:field="*{email}">
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="name" class="form-label">Full Name *</label>
+                                    <input type="text" class="form-control" id="name" th:field="*{name}" required>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="username" class="form-label">Username *</label>
+                                    <input type="text" class="form-control" id="username" th:field="*{username}"
+                                        required readonly>
+                                    <small class="text-muted">Username cannot be changed</small>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label">Email *</label>
+                                    <input type="email" class="form-control" id="email" th:field="*{email}" required
+                                        readonly>
+                                    <small class="text-muted">Email cannot be changed</small>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="contact" class="form-label">Contact Number *</label>
+                                    <input type="tel" class="form-control" id="contact" th:field="*{contact}" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="bloodGroup" class="form-label">Blood Group *</label>
+                                    <select class="form-select" id="bloodGroup" th:field="*{bloodGroup}" required>
+                                        <option value="">Select Blood Group</option>
+                                        <option value="A_POSITIVE">A+</option>
+                                        <option value="A_NEGATIVE">A-</option>
+                                        <option value="B_POSITIVE">B+</option>
+                                        <option value="B_NEGATIVE">B-</option>
+                                        <option value="AB_POSITIVE">AB+</option>
+                                        <option value="AB_NEGATIVE">AB-</option>
+                                        <option value="O_POSITIVE">O+</option>
+                                        <option value="O_NEGATIVE">O-</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="state" class="form-label">State *</label>
+                                    <select class="form-select" id="state" th:field="*{state}" required>
+                                        <option value="">Select State</option>
+                                        <option th:each="s : ${states}" th:value="${s}"
+                                            th:text="${#strings.replace(s.name(),'_',' ')}">State
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="city" class="form-label">City *</label>
+                                    <select class="form-select" id="city" th:field="*{city}" required>
+                                        <option value="">Select City</option>
+                                        <option th:each="c : ${cities}" th:value="${c}" th:text="${c.displayName}">City
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Address</label>
+                                <textarea class="form-control" id="address" th:field="*{address}" rows="3"></textarea>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="gender" class="form-label">Gender</label>
+                                    <select class="form-select" id="gender" th:field="*{gender}">
+                                        <option value="">Select Gender</option>
+                                        <option value="MALE">Male</option>
+                                        <option value="FEMALE">Female</option>
+                                        <option value="OTHER">Other</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="pincode" class="form-label">Pincode</label>
+                                    <input type="text" class="form-control" id="pincode" th:field="*{pincode}">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="enabled" class="form-label">Account Status</label>
+                                    <select class="form-select" id="enabled" th:field="*{enabled}">
+                                        <option value="true">Active</option>
+                                        <option value="false">Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="d-grid gap-2 mt-4">
+                                <button type="submit" class="btn btn-danger btn-lg">
+                                    <i class="fas fa-save me-2"></i>Save Changes
+                                </button>
+                                <a href="/profile" class="btn btn-outline-secondary">
+                                    <i class="fas fa-times me-2"></i>Cancel
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Information Card -->
+                <div class="card border-0 shadow-sm mt-4">
+                    <div class="card-body">
+                        <h6 class="card-title">
+                            <i class="fas fa-info-circle text-info me-2"></i>Important Information
+                        </h6>
+                        <ul class="list-unstyled mb-0 small">
+                            <li class="mb-2">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                Your email and username cannot be changed for security reasons
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                Make sure your contact information is up-to-date
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                Your blood group information helps match you with donation requests
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-auto">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>RED-LINK</h5>
+                    <p>Connecting blood donors with those in need.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>&copy; 2025 - 2026 RED-LINK. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <!-- Local Bootstrap JS -->
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>

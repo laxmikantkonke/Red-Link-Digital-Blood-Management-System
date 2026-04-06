@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">Manage Users - Admin Panel</title>
+
+    <!-- Local Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
+    <!-- Local Font Awesome -->
+    <link rel="stylesheet" th:href="@{/vendor/fontawesome/css/all.min.css}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+    <!-- Include Navbar -->
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <div class="container my-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h3"><i class="fas fa-users-cog me-2 text-danger"></i>Manage Users</h1>
+            <a href="/admin/dashboard" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+            </a>
+        </div>
+
+        <div th:if="${param.deleted}" class="alert alert-success alert-dismissible fade show" role="alert">
+            User deleted successfully.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Contact</th>
+                                <th>City</th>
+                                <th>Pincode</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="user : ${users.content}">
+                                <td>
+                                    <div class="fw-bold" th:text="${user.name}">User Name</div>
+                                    <div class="small text-muted" th:text="${user.username}">username</div>
+                                </td>
+                                <td th:text="${user.email}">user@example.com</td>
+                                <td th:text="${user.contact}">1234567890</td>
+                                <td th:text="${user.city != null ? user.city.displayName : 'N/A'}">City</td>
+                                <td th:text="${user.pincode}">123456</td>
+                                <td>
+                                    <form th:action="@{/admin/users/{id}/delete(id=${user.id})}" method="post"
+                                        style="display:inline;"
+                                        onsubmit="return confirm('Are you sure you want to delete this user? This action cannot be undone.');">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete User">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Pagination Controls -->
+            <div th:if="${totalPages > 1}" class="row align-items-center mt-4">
+                <div class="col-md-4 text-muted">
+                    Showing <span th:text="${users.numberOfElements}">0</span> of <span th:text="${totalItems}">0</span>
+                    entries
+                </div>
+                <div class="col-md-4 d-flex justify-content-center">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination mb-0">
+                            <!-- Previous Button -->
+                            <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                                <a class="page-link" th:href="@{/admin/users(page=${currentPage - 1})}"
+                                    aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+
+                            <!-- Page Numbers -->
+                            <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                                th:classappend="${currentPage == i} ? 'active'">
+                                <a class="page-link" th:href="@{/admin/users(page=${i})}" th:text="${i + 1}">1</a>
+                            </li>
+
+                            <!-- Next Button -->
+                            <li class="page-item" th:classappend="${currentPage + 1 == totalPages} ? 'disabled'">
+                                <a class="page-link" th:href="@{/admin/users(page=${currentPage + 1})}"
+                                    aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Footer -->
+    <div th:replace="fragments/footer :: footer"></div>
+
+    <!-- Local Bootstrap JS -->
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/script.js}"></script>
+
+</body>
+
+</html>

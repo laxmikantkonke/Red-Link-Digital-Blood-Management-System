@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/base :: head">
+    <title th:text="${title}">Search Donor - RED-LINK</title>
+</head>
+
+<body class="bg-light">
+
+    <!-- Include Navbar -->
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <div class="container mt-5 mb-5">
+        <h2 class="text-danger fw-bold text-center mb-4"><i class="fas fa-search me-2"></i>Search Blood Donors</h2>
+
+        <!-- Search Card -->
+        <div class="card shadow border-0">
+            <div class="card-body p-4">
+                <form method="get" th:action="@{/search-donor}">
+                    <div class="row g-3">
+                        <div class="col-md-5">
+                            <label class="form-label fw-bold">Blood Group</label>
+                            <select class="form-select" name="bloodGroup">
+                                <option value="">Select Blood Group</option>
+                                <option th:each="bg : ${bloodGroups}" th:value="${bg['name']}"
+                                    th:text="${bg['displayName']}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-5">
+                            <label class="form-label fw-bold">City</label>
+                            <select class="form-select" name="city">
+                                <option value="">Select City</option>
+                                <option th:each="c : ${cities}" th:value="${c['name']}" th:text="${c['displayName']}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-end">
+                            <button type="submit" class="btn btn-danger w-100 fw-bold"><i
+                                    class="fas fa-search me-1"></i> Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Results Area -->
+        <div class="mt-5" th:if="${donors != null}">
+            <h3 class="mb-4 text-center">Search Results</h3>
+            <div class="alert alert-info" th:if="${#lists.isEmpty(donors)}">
+                No donors found matching your criteria.
+            </div>
+            <div class="row g-4" th:if="${!#lists.isEmpty(donors)}">
+                <div class="col-md-4" th:each="donor : ${donors}">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body">
+                            <h5 class="card-title text-danger" th:text="${donor.name}">Name</h5>
+                            <p class="mb-1"><strong>Blood Group:</strong> <span class="badge bg-danger"
+                                    th:text="${donor.bloodGroup != null ? donor.bloodGroup.displayName : 'Unknown'}">A+</span>
+                            </p>
+                            <p class="mb-1"><strong>Location:</strong> <span
+                                    th:text="${donor.city != null ? donor.city.displayName : 'Unknown'}">City</span></p>
+                            <p class="mb-1"><strong>Contact:</strong> <span
+                                    th:text="${donor.contact != null ? donor.contact : 'N/A'}">0123...</span>
+                            </p>
+                            <a th:href="@{/profile/details/{id}(id=${donor.id})}"
+                                class="btn btn-sm btn-outline-danger mt-2">View Profile</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5 text-center text-muted" th:if="${donors == null}">
+            <i class="fas fa-users fa-3x mb-3 text-secondary"></i>
+            <p class="lead">Select criteria above to find donors.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-auto fixed-bottom" style="position: relative;">
+        <div class="container text-center">
+            <p>&copy; 2025 - 2026 RED-LINK. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <!-- Local Bootstrap JS -->
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+
+</html>

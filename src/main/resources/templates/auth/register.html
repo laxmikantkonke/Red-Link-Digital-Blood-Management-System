@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/base :: head">
+    <title>Register - RED-LINK</title>
+
+    <!-- Extra head content for register -->
+    <!-- Select2 CSS -->
+    <!-- Local Select2 CSS -->
+    <link th:href="@{/vendor/select2/select2.min.css}" rel="stylesheet" />
+
+    <style>
+        .required::after {
+            content: " *";
+            color: red;
+        }
+
+        .select2-container .select2-selection--single {
+            height: 38px;
+        }
+
+        .select2-selection__rendered {
+            line-height: 36px !important;
+        }
+
+        .select2-selection__arrow {
+            height: 36px !important;
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+
+    <!-- NAVBAR -->
+    <!-- Navigation -->
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <!-- REGISTER FORM -->
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow border-0">
+                    <div class="card-body p-5">
+
+                        <div class="text-center mb-4">
+                            <h2>Create Account</h2>
+                            <p class="text-muted">Join RED-LINK today</p>
+                        </div>
+
+                        <form th:action="@{/register}" th:object="${user}" method="post">
+
+                            <!-- USERNAME + NAME -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label required">Username</label>
+                                    <input type="text" class="form-control" placeholder="Enter username"
+                                        th:field="*{username}">
+                                </div>
+                                <div class="text-danger" th:if="${#fields.hasErrors('username')}"
+                                    th:errors="*{username}"></div>
+
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label required">Full Name</label>
+                                    <input type="text" class="form-control" placeholder="Enter full name"
+                                        th:field="*{name}">
+                                </div>
+                                <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                            </div>
+
+                            <!-- EMAIL + PASSWORD -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label required">Email</label>
+                                    <input type="email" class="form-control" placeholder="Enter email address"
+                                        th:field="*{email}">
+                                </div>
+                                <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label required">Password</label>
+                                    <input type="password" class="form-control" placeholder="Enter password"
+                                        th:field="*{password}" autocomplete="new-password">
+                                </div>
+
+                                <div class="text-danger" th:if="${#fields.hasErrors('password')}"
+                                    th:errors="*{password}"></div>
+
+
+                            </div>
+
+                            <!-- CONTACT + GENDER -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label required">Contact</label>
+                                    <input type="tel" class="form-control" placeholder="Enter 10-digit mobile number"
+                                        th:field="*{contact}" pattern="[6-9][0-9]{9}"
+                                        title="Please enter a valid 10-digit mobile number starting with 6-9" required>
+                                    <div class="text-danger" th:if="${#fields.hasErrors('contact')}"
+                                        th:errors="*{contact}"></div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label required">Gender</label>
+                                    <select class="form-select" th:field="*{gender}">
+                                        <option value="">Select gender</option>
+                                        <option value="MALE">Male</option>
+                                        <option value="FEMALE">Female</option>
+                                        <option value="OTHER">Other</option>
+                                    </select>
+                                    <div class="text-danger" th:if="${#fields.hasErrors('gender')}"
+                                        th:errors="*{gender}"></div>
+                                </div>
+                            </div>
+
+                            <!-- BLOOD GROUP + STATE -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label required">Blood Group</label>
+                                    <select class="form-select select-search" th:field="*{bloodGroup}">
+                                        <option value="">Select blood group</option>
+                                        <option value="A_POSITIVE">A+</option>
+                                        <option value="A_NEGATIVE">A-</option>
+                                        <option value="B_POSITIVE">B+</option>
+                                        <option value="B_NEGATIVE">B-</option>
+                                        <option value="AB_POSITIVE">AB+</option>
+                                        <option value="AB_NEGATIVE">AB-</option>
+                                        <option value="O_POSITIVE">O+</option>
+                                        <option value="O_NEGATIVE">O-</option>
+                                    </select>
+                                    <div class="text-danger" th:if="${#fields.hasErrors('bloodGroup')}"
+                                        th:errors="*{bloodGroup}"></div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label required">State</label>
+                                    <select class="form-select select-search" th:field="*{state}">
+                                        <option value="">Select state</option>
+                                        <option th:each="s : ${states}" th:value="${s}"
+                                            th:text="${#strings.replace(s.name(),'_',' ')}">
+                                        </option>
+                                    </select>
+                                    <div class="text-danger" th:if="${#fields.hasErrors('state')}" th:errors="*{state}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- CITY + PINCODE -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label required">City</label>
+                                    <select class="form-select select-search" th:field="*{city}">
+                                        <option value="">Select city</option>
+                                        <option th:each="c : ${cities}" th:value="${c}" th:text="${c.displayName}">
+                                        </option>
+                                    </select>
+                                    <div class="text-danger" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label required">Pincode</label>
+                                    <input type="text" class="form-control" placeholder="Enter pincode"
+                                        th:field="*{pincode}">
+                                </div>
+                                <div class="text-danger" th:if="${#fields.hasErrors('pincode')}" th:errors="*{pincode}">
+                                </div>
+
+                            </div>
+
+                            <!-- ADDRESS -->
+                            <div class="mb-3">
+                                <label class="form-label required">Address</label>
+                                <textarea class="form-control" rows="3" placeholder="Enter complete address"
+                                    th:field="*{address}"></textarea>
+                                <div class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">
+                                </div>
+                            </div>
+
+                            <div class="d-grid mt-4">
+                                <button type="submit" class="btn btn-danger">
+                                    Create Account
+                                </button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container text-center">
+            <p>&copy; 2025 - 2026 RED-LINK. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JS (ORDER IS CRITICAL) -->
+    <!-- Local JS (ORDER IS CRITICAL) -->
+    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/vendor/select2/select2.min.js}"></script>
+    <script th:src="@{/js/script.js}"></script>
+
+</body>
+
+</html>

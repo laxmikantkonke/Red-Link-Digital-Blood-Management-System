@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">About Us - RED-LINK</title>
+
+    <!-- Local Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
+    <!-- Local Font Awesome -->
+    <link rel="stylesheet" th:href="@{/vendor/fontawesome/css/all.min.css}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+    <!-- Include Navbar -->
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <!-- About Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-6">
+                    <h2 class="display-5 fw-bold text-danger mb-4">About RED-LINK</h2>
+                    <p class="lead text-muted mb-4">Connecting donors with those in need, creating a lifeline for the
+                        community.</p>
+                    <p>RED-LINK is a comprehensive blood management system designed to bridge the gap between blood
+                        donors, hospitals, and patients. Our mission is to ensure that no life is lost due to the
+                        unavailability of blood.</p>
+                    <p>We provide a platform where donors can find nearby hospitals, recipients can request blood, and
+                        hospitals can manage their inventory efficiently.</p>
+                </div>
+                <div class="col-lg-6">
+                    <div class="bg-light p-5 rounded text-center">
+                        <i class="fas fa-hand-holding-heart display-1 text-danger"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4 text-center">
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <i class="fas fa-bullseye fa-3x text-danger mb-3"></i>
+                            <h4>Our Mission</h4>
+                            <p class="card-text">To save lives by simplifying the process of blood donation and request.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <i class="fas fa-eye fa-3x text-danger mb-3"></i>
+                            <h4>Our Vision</h4>
+                            <p class="card-text">A world where safe blood is available to everyone, everywhere,
+                                instantly.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <i class="fas fa-users fa-3x text-danger mb-3"></i>
+                            <h4>Our Community</h4>
+                            <p class="card-text">Thousands of heroes who donate blood and save lives every day.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>RED-LINK</h5>
+                    <p>Connecting blood donors with those in need.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>&copy; 2025 - 2026 RED-LINK. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <!-- Local Bootstrap JS -->
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>

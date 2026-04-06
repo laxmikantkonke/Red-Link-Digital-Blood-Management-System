@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="layout/base :: head">
+    <title>Nearby Hospitals</title>
+</head>
+
+<body>
+
+    <!-- Include Navbar -->
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <div class="container mt-5 mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="text-danger fw-bold"><i class="fas fa-hospital-alt me-2"></i>Find Hospitals</h2>
+        </div>
+
+        <!-- City Filter -->
+        <div class="card shadow-sm border-0 mb-4 bg-light">
+            <div class="card-body">
+                <div class="row align-items-center g-3">
+                    <div class="col-auto">
+                        <label for="citySelect" class="col-form-label fw-bold">Select City:</label>
+                    </div>
+                    <div class="col-auto flex-grow-1">
+                        <select id="citySelect" name="city" class="form-select border-danger">
+                            <option value="">All Cities</option>
+                            <option th:each="c : ${cities}" th:value="${c.name()}" th:text="${c.displayName}"
+                                th:selected="${selectedCity != null and c == selectedCity}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-danger px-4" type="button" onclick="searchByCity()">
+                            <i class="fas fa-search me-1"></i> Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Hospitals List -->
+        <div id="hospital-grid" class="row g-4">
+            <div class="col-md-6 col-lg-4" th:each="hospital : ${hospitals}">
+                <div class="card h-100 shadow-sm border-0 hover-shadow transition">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-danger text-white rounded p-3 me-3 d-flex align-items-center justify-content-center"
+                                style="min-width: 80px; min-height: 80px;">
+                                <i class="fas fa-hospital fa-3x"></i>
+                            </div>
+                            <div>
+                                <h5 class="card-title fw-bold mb-0" th:text="${hospital.name}">Hospital Name</h5>
+                                <span class="badge bg-secondary" th:if="${hospital.city != null}"
+                                    th:text="${hospital.city.displayName}">City</span>
+                            </div>
+                        </div>
+                        <p class="card-text text-muted">
+                            <i class="fas fa-phone-alt me-2 text-danger"></i>
+                            <span th:text="${hospital.contact}">Contact</span>
+                        </p>
+                    </div>
+                    <div class="card-footer bg-white border-top-0 pb-3">
+                        <a th:href="@{/hospitals/view/{id}(id=${hospital.id})}"
+                            class="btn btn-outline-danger w-100">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5 text-center">
+            <a th:href="@{/}" class="btn btn-secondary"><i class="fas fa-arrow-left me-2"></i>Back to Home</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-auto">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>RED-LINK</h5>
+                    <p>Connecting blood donors with those in need.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>&copy; 2025 - 2026 RED-LINK. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <!-- Local Bootstrap JS -->
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+    <script>
+        function searchByCity() {
+            const city = document.getElementById('citySelect').value;
+            fetchHospitals(city);
+        }
+
+        function fetchHospitals(city) {
+            const container = document.getElementById('hospital-grid');
+            container.innerHTML = `
+                <div class="col-12 text-center py-5">
+                    <div class="spinner-border text-danger" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            `;
+
+            let url = `/api/hospitals/nearby?`;
+            if (city) {
+                url += `city=${encodeURIComponent(city)}`;
+            }
+
+            console.log('Fetching hospitals from:', url);
+
+            fetch(url)
+                .then(response => {
+                    console.log('Response status:', response.status);
+                    console.log('Response ok:', response.ok);
+                    if (!response.ok) {
+                        return response.text().then(text => {
+                            console.error('Error response:', text);
+                            throw new Error(`HTTP ${response.status}: ${text}`);
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Received data:', data);
+                    updateHospitalList(data);
+                })
+                .catch(error => {
+                    console.error('Fetch error:', error);
+                    container.innerHTML = `<p class="text-center text-danger">Error: ${error.message}</p>`;
+                });
+        }
+
+        function updateHospitalList(hospitals) {
+            const container = document.getElementById('hospital-grid');
+            if (!hospitals || hospitals.length === 0 || typeof hospitals === 'string') {
+                container.innerHTML = `
+                    <div class="col-12 text-center py-5">
+                        <i class="fas fa-hospital-alt fa-4x text-light mb-3"></i>
+                        <h4 class="text-muted">No hospitals found</h4>
+                        <p class="text-secondary">Try adjusting your search criteria or radius.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Clear loading spinner if hospitals exist
+            container.innerHTML = '';
+
+
+
+            // Sync City Dropdown (Part of User Request)
+            // If we found hospitals, set the dropdown to the city of the first hospital
+            if (hospitals.length > 0 && hospitals[0].city) {
+                const citySelect = document.getElementById('citySelect');
+                // The hospital JSON might return city name (e.g. "NASHIK")
+                // Enums in JSON often serialized as string constants
+                const cityValue = hospitals[0].city;
+                if (citySelect) {
+                    // Find an option with this value and select it
+                    for (let i = 0; i < citySelect.options.length; i++) {
+                        if (citySelect.options[i].value === cityValue) {
+                            citySelect.selectedIndex = i;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            hospitals.forEach(h => {
+                const card = `
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 shadow-sm border-0 hover-shadow transition">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-danger text-white rounded p-3 me-3 d-flex align-items-center justify-content-center"
+                                        style="min-width: 80px; min-height: 80px;">
+                                        <i class="fas fa-hospital fa-3x"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="card-title fw-bold mb-0">${h.name}</h5>
+                                        ${h.city ? `<span class="badge bg-secondary">${h.city}</span>` : ''}
+                                    </div>
+                                </div>
+                                <p class="card-text text-muted">
+                                    <i class="fas fa-phone-alt me-2 text-danger"></i>
+                                    <span>${h.contact || 'N/A'}</span>
+                                </p>
+                            </div>
+                            <div class="card-footer bg-white border-top-0 pb-3">
+                                <a href="/hospitals/view/${h.id}"
+                                    class="btn btn-outline-danger w-100">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += card;
+            });
+        }
+    </script>
+</body>
+
+</html>

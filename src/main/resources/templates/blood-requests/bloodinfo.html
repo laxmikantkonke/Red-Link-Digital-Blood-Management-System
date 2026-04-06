@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/base :: head">
+    <title th:text="${title}">Blood Info - RED-LINK</title>
+</head>
+
+<style>
+    .blood-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: default;
+    }
+
+    .blood-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .blood-type-icon {
+        width: 60px;
+        height: 60px;
+        background-color: #f8d7da;
+        color: #dc3545;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        margin: 0 auto 1rem;
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .compatibility-list {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 0;
+        font-size: 0.9rem;
+    }
+
+    .compatibility-list li {
+        padding: 0.25rem 0;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .compatibility-list li:last-child {
+        border-bottom: none;
+    }
+
+    .section-title {
+        position: relative;
+        padding-bottom: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        width: 50px;
+        height: 3px;
+        background-color: #dc3545;
+    }
+</style>
+</head>
+
+<body class="bg-light">
+
+    <!-- Include Navbar -->
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="section-title fw-bold text-danger">Blood Compatibility Information</h2>
+            <p class="lead text-muted mx-auto" style="max-width: 700px;">
+                Understanding blood types is crucial for safe blood transfusions and donations.
+                Learn which blood types are compatible with each other.
+            </p>
+        </div>
+
+        <div class="row g-4">
+            <!-- A+ -->
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm blood-card">
+                    <div class="card-body text-center p-4">
+                        <div class="blood-type-icon shadow-sm">A+</div>
+                        <h4 class="card-title fw-bold mb-3">Type A+</h4>
+                        <ul class="compatibility-list text-start">
+                            <li><strong>Can Give To:</strong> A+, AB+</li>
+                            <li><strong>Can Receive From:</strong> A+, A-, O+, O-</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer bg-white border-0 pb-3 text-center">
+                        <span class="badge bg-danger text-white rounded-pill px-4 py-2 fw-bold">Common</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- A- -->
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm blood-card">
+                    <div class="card-body text-center p-4">
+                        <div class="blood-type-icon shadow-sm">A-</div>
+                        <h4 class="card-title fw-bold mb-3">Type A-</h4>
+                        <ul class="compatibility-list text-start">
+                            <li><strong>Can Give To:</strong> A+, A-, AB+, AB-</li>
+                            <li><strong>Can Receive From:</strong> A-, O-</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer bg-white border-0 pb-3 text-center">
+                        <span class="badge bg-secondary text-white rounded-pill px-3 py-2 fw-bold">Rare</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- B+ -->
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm blood-card">
+                    <div class="card-body text-center p-4">
+                        <div class="blood-type-icon shadow-sm">B+</div>
+                        <h4 class="card-title fw-bold mb-3">Type B+</h4>
+                        <ul class="compatibility-list text-start">
+                            <li><strong>Can Give To:</strong> B+, AB+</li>
+                            <li><strong>Can Receive From:</strong> B+, B-, O+, O-</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer bg-white border-0 pb-3 text-center">
+                        <span class="badge bg-danger text-white rounded-pill px-4 py-2 fw-bold">Common</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- B- -->
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm blood-card">
+                    <div class="card-body text-center p-4">
+                        <div class="blood-type-icon shadow-sm">B-</div>
+                        <h4 class="card-title fw-bold mb-3">Type B-</h4>
+                        <ul class="compatibility-list text-start">
+                            <li><strong>Can Give To:</strong> B+, B-, AB+, AB-</li>
+                            <li><strong>Can Receive From:</strong> B-, O-</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer bg-white border-0 pb-3 text-center">
+                        <span class="badge bg-secondary text-white rounded-pill px-3 py-2 fw-bold">Rare</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AB+ -->
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm blood-card border-top border-warning border-4">
+                    <div class="card-body text-center p-4">
+                        <div class="blood-type-icon shadow-sm bg-warning bg-opacity-10 text-warning">AB+</div>
+                        <h4 class="card-title fw-bold mb-3">Type AB+</h4>
+                        <ul class="compatibility-list text-start">
+                            <li><strong>Can Give To:</strong> AB+</li>
+                            <li><strong>Can Receive From:</strong> Everyone</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer bg-white border-0 pb-3 text-center">
+                        <span class="badge bg-warning text-dark rounded-pill px-3 py-2 fw-bold">Universal
+                            Recipient</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AB- -->
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm blood-card">
+                    <div class="card-body text-center p-4">
+                        <div class="blood-type-icon shadow-sm">AB-</div>
+                        <h4 class="card-title fw-bold mb-3">Type AB-</h4>
+                        <ul class="compatibility-list text-start">
+                            <li><strong>Can Give To:</strong> AB+, AB-</li>
+                            <li><strong>Can Receive From:</strong> A-, B-, AB-, O-</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer bg-white border-0 pb-3 text-center">
+                        <span class="badge bg-danger text-white rounded-pill px-3 py-2 fw-bold">Extremely Rare</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- O+ -->
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm blood-card">
+                    <div class="card-body text-center p-4">
+                        <div class="blood-type-icon shadow-sm">O+</div>
+                        <h4 class="card-title fw-bold mb-3">Type O+</h4>
+                        <ul class="compatibility-list text-start">
+                            <li><strong>Can Give To:</strong> O+, A+, B+, AB+</li>
+                            <li><strong>Can Receive From:</strong> O+, O-</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer bg-white border-0 pb-3 text-center">
+                        <span class="badge bg-danger text-white rounded-pill px-4 py-2 fw-bold">Common Donor</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- O- -->
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm blood-card border-top border-success border-4">
+                    <div class="card-body text-center p-4">
+                        <div class="blood-type-icon shadow-sm text-success">O-</div>
+                        <h4 class="card-title fw-bold mb-3">Type O-</h4>
+                        <ul class="compatibility-list text-start">
+                            <li><strong>Can Give To:</strong> Everyone</li>
+                            <li><strong>Can Receive From:</strong> O-</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer bg-white border-0 pb-3 text-center">
+                        <span class="badge bg-success text-white rounded-pill px-3 py-2 fw-bold fs-6">Universal
+                            Donor</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert alert-info shadow-sm border-0 mt-5 p-4 rounded-3 d-flex align-items-center">
+            <i class="fas fa-info-circle fa-2x text-info me-3"></i>
+            <div>
+                <h5 class="fw-bold mb-1">Important Note</h5>
+                <p class="mb-0 text-muted">
+                    Blood donation eligibility may vary based on health conditions, medical history, and local
+                    regulations.
+                    Always consult with medical professionals or visit your local blood bank for personalized advice.
+                </p>
+            </div>
+        </div>
+
+        <div class="text-center mt-5">
+            <a href="/" class="btn btn-outline-danger btn-lg px-4 rounded-pill">
+                <i class="fas fa-arrow-left me-2"></i> Back to Homepage
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>RED-LINK</h5>
+                    <p>Connecting blood donors with those in need.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>&copy; 2025 - 2026 RED-LINK. All rights reserved.</p>
+                    <div class="social-links">
+                        <a href="#" class="text-light me-3"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Include Scripts -->
+    <div th:replace="layout/base :: scripts"></div>
+</body>
+
+</html>
