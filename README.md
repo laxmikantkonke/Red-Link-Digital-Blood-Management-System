@@ -129,8 +129,7 @@ http://localhost:8080
 ---
 
 ## 📸 Screenshots (Optional)
-
-*Add screenshots of your UI here to improve presentation.*
+![Home Page](https://github.com/laxmikantkonke/Red-Link-Digital-Blood-Management-System/blob/main/HOME.jpeg?raw=true)
 
 ---
 
