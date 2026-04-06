@@ -1,65 +1,151 @@
-# Red-link: Blood Management System
+# 🩸 RedLink - Digital Blood Management System
 
-Red-link is a comprehensive, Spring Boot-powered web application designed to streamline blood donation, request, and inventory management. It connects donors, hospitals, and those in need of blood through a centralized, easy-to-use platform.
+## 📌 Overview
+
+RedLink is a web-based Blood Management System designed to streamline blood donation, requests, and inventory management. It connects donors, recipients, and administrators on a single platform, making the process efficient and accessible.
+
+---
 
 ## 🚀 Features
 
--   **User Authentication & Authorization**: Secure login and registration for Donors and Administrators.
--   **Blood Request Management**: Submit, track, and manage blood requests with urgency levels.
--   **Hospital Directory & Inventory**: Dynamic listing of hospitals and their real-time blood stock.
--   **Admin Dashboard**: Comprehensive overview for administrators to manage users, hospitals, and requests.
--   **Email Notifications**: Automated alerts for password resets and critical updates.
--   **Search & Filter**: Find donors and hospitals by city, state, or blood group.
+* 🧑‍🤝‍🧑 Donor Registration & Management
+* 🩸 Blood Request System
+* 🏥 Blood Inventory Tracking
+* 🔐 Admin Dashboard
+* 📧 Email Notification Support (optional)
+* 🔎 Search & Filter Donors/Blood Groups
+
+---
 
 ## 🛠️ Tech Stack
 
--   **Backend**: Java 21, Spring Boot 2.7.14
--   **Security**: Spring Security
--   **Database**: MySQL 8.0
--   **Frontend**: Thymeleaf, HTML5, CSS3, JavaScript
--   **Build Tool**: Maven
--   **Email**: Spring Boot Starter Mail
+* **Backend:** Java, Spring Boot
+* **Frontend:** Thymeleaf, HTML, CSS
+* **Database:** MySQL
+* **ORM:** Hibernate / JPA
+* **Build Tool:** Maven
 
-## ⚙️ Quick Start
+---
 
-### Prerequisites
+## 📂 Project Structure
 
--   Java 21 or higher
--   Maven 3.x
--   MySQL 8.0
+```
+Red-Link-Digital-Blood-Management-System/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   └── resources/
+│   │       ├── templates/
+│   │       ├── static/
+│   │       ├── application.properties (ignored)
+│   │       └── application-example.properties
+├── pom.xml
+├── README.md
+└── .gitignore
+```
 
-### Setup
+---
 
-1.  **Clone the Repository**:
-    ```bash
-    git clone https://github.com/your-repo/red-link.git
-    cd red-link
-    ```
+## ⚙️ Setup Instructions
 
-2.  **Configure Database**:
-    -   Create a database named `blood_link`.
-    -   Update `src/main/resources/application.properties` with your MySQL credentials:
-        ```properties
-        spring.datasource.username=your_username
-        spring.datasource.password=your_password
-        ```
+### 1️⃣ Clone the Repository
 
-3.  **Run the Application**:
-    ```bash
-    mvn spring-boot:run
-    ```
+```
+git clone https://github.com/laxmikantkonke/Red-Link-Digital-Blood-Management-System.git
+cd Red-Link-Digital-Blood-Management-System
+```
 
-4.  **Access the App**:
-    Open [http://localhost:8080](http://localhost:8080) in your browser.
+---
 
-## 📄 Documentation
+### 2️⃣ Configure Application Properties
 
-For detailed technical information, including the data model and API details, please refer to [DOCUMENTATION.md](DOCUMENTATION.md).
+* Navigate to:
 
-## 🤝 Contributing
+  ```
+  src/main/resources/
+  ```
+* Copy the template file:
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+  ```
+  application-example.properties
+  ```
+* Rename it to:
 
-## ⚖️ License
+  ```
+  application.properties
+  ```
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+---
+
+### 3️⃣ Update Configuration
+
+Edit `application.properties` and add your details:
+
+```
+spring.datasource.url=jdbc:mysql://localhost:3306/redlink_db
+spring.datasource.username=root
+spring.datasource.password=yourpassword
+```
+
+---
+
+### 4️⃣ Create Database
+
+Open MySQL and run:
+
+```
+CREATE DATABASE redlink_db;
+```
+
+---
+
+### 5️⃣ Run the Application
+
+Using Maven:
+
+```
+mvn spring-boot:run
+```
+
+Or run the main class from your IDE.
+
+---
+
+### 6️⃣ Access the Application
+
+Open your browser:
+
+```
+http://localhost:8080
+```
+
+---
+
+## 🔐 Security Note
+
+* `application.properties` is **not included in GitHub** to protect sensitive data.
+* Use `application-example.properties` as a reference template.
+
+---
+
+## 📸 Screenshots (Optional)
+
+*Add screenshots of your UI here to improve presentation.*
+
+---
+
+## 💡 Future Enhancements
+
+* REST API integration
+* Role-based authentication (JWT / Spring Security)
+* Deployment (AWS / Docker)
+* Mobile app integration
+
+---
+
+## 👨‍💻 Author
+
+**Laxmikant Konke**
+
+---
+
