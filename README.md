@@ -138,6 +138,8 @@ http://localhost:8080
 ![Home Page](https://github.com/laxmikantkonke/Red-Link-Digital-Blood-Management-System/blob/main/USER_DASHBOARD.jpeg?raw=true)
 ![Home Page](https://github.com/laxmikantkonke/Red-Link-Digital-Blood-Management-System/blob/main/POST_BLOODREQUEST.jpeg?raw=true)
 
+![Home Page](https://github.com/laxmikantkonke/Red-Link-Digital-Blood-Management-System/blob/main/UPDATE_BLOOD_STOCKS.jpeg?raw=true)
+
 
 
 ---
